@@ -1,5 +1,8 @@
 const { app, BrowserWindow, Menu, ipcMain, net, session, shell } = require('electron')
 const path = require('path')
+
+// los datos se quedan en la carpeta de antes de cambiar el nombre a Palomo API-geon
+app.setPath('userData', path.join(app.getPath('appData'), 'Palomo'))
 const idiomas = {}
 for (const codigo of ['es', 'zh', 'en', 'ca', 'ru', 'de', 'ja']) {
   Object.assign(idiomas, require('./js/idiomas/language_' + codigo + '.js'))

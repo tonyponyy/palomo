@@ -48,7 +48,7 @@ language.ca = {
   estado: "Estat : %estado%",
   enviando: "<i>Enviant...</i>",
   json_no_valido: "<b>JSON no vàlid</b> %error%",
-  cerrado_sin_respuesta: "<i>Es va tancar Palomo abans que arribés la resposta</i>",
+  cerrado_sin_respuesta: "<i>Es va tancar Palomo API-geon abans que arribés la resposta</i>",
   tiempo: "Temps : %tiempo%",
   previsualizar: "Previsualitza",
   guardada_ok: "Desada",
@@ -101,7 +101,7 @@ language.ca = {
   detalle_atributos: "Atributs :",
   ninguno: "cap",
 
-  ayuda_titulo: "Ajuda de Palomo · versió",
+  ayuda_titulo: "Ajuda de Palomo API-geon · versió",
   ayuda_variables: `
     <h3>Variables de l'entorn</h3>
     <p>A <b>Entorn</b> es desen claus amb el seu valor. Es poden fer servir a l'adreça, als atributs, al JSON i a les capçaleres:</p>
@@ -168,7 +168,7 @@ language.ca = {
   ayuda_ventanas: `
     <h3>Diverses finestres</h3>
     <p>Cada finestra té les seves pestanyes, però l'entorn i les peticions desades són els mateixos a totes: el que canvia una ho veuen les altres.
-      En tornar a obrir Palomo es recuperen les pestanyes de la finestra principal, les de les finestres obertes amb <b>Finestra nova</b> no es conserven.</p>`,
+      En tornar a obrir Palomo API-geon es recuperen les pestanyes de la finestra principal, les de les finestres obertes amb <b>Finestra nova</b> no es conserven.</p>`,
   ayuda_atajos: `
     <h3>Dreceres de teclat</h3>
     <ul>

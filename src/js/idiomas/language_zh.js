@@ -48,7 +48,7 @@ language.zh = {
   estado: "状态：%estado%",
   enviando: "<i>正在发送...</i>",
   json_no_valido: "<b>JSON 无效</b> %error%",
-  cerrado_sin_respuesta: "<i>Palomo 在收到响应前被关闭了</i>",
+  cerrado_sin_respuesta: "<i>Palomo API-geon 在收到响应前被关闭了</i>",
   tiempo: "耗时：%tiempo%",
   previsualizar: "预览",
   guardada_ok: "已保存",
@@ -101,7 +101,7 @@ language.zh = {
   detalle_atributos: "参数：",
   ninguno: "无",
 
-  ayuda_titulo: "Palomo 帮助 · 版本",
+  ayuda_titulo: "Palomo API-geon 帮助 · 版本",
   ayuda_variables: `
     <h3>环境变量</h3>
     <p><b>环境</b>中保存着键和对应的值。它们可以用在地址、参数、JSON 和请求头中：</p>
@@ -168,7 +168,7 @@ language.zh = {
   ayuda_ventanas: `
     <h3>多个窗口</h3>
     <p>每个窗口有自己的标签页，但环境和已保存的请求在所有窗口中是共享的：一个窗口的修改其他窗口都能看到。
-      再次打开 Palomo 时会恢复主窗口的标签页，通过<b>新窗口</b>打开的窗口的标签页不会保留。</p>`,
+      再次打开 Palomo API-geon 时会恢复主窗口的标签页，通过<b>新窗口</b>打开的窗口的标签页不会保留。</p>`,
   ayuda_atajos: `
     <h3>快捷键</h3>
     <ul>

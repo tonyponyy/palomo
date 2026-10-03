@@ -48,7 +48,7 @@ language.de = {
   estado: "Status : %estado%",
   enviando: "<i>Wird gesendet...</i>",
   json_no_valido: "<b>Ungültiges JSON</b> %error%",
-  cerrado_sin_respuesta: "<i>Palomo wurde geschlossen, bevor die Antwort ankam</i>",
+  cerrado_sin_respuesta: "<i>Palomo API-geon wurde geschlossen, bevor die Antwort ankam</i>",
   tiempo: "Zeit : %tiempo%",
   previsualizar: "Vorschau",
   guardada_ok: "Gespeichert",
@@ -101,7 +101,7 @@ language.de = {
   detalle_atributos: "Attribute :",
   ninguno: "keine",
 
-  ayuda_titulo: "Palomo-Hilfe · Version",
+  ayuda_titulo: "Hilfe zu Palomo API-geon · Version",
   ayuda_variables: `
     <h3>Umgebungsvariablen</h3>
     <p>In der <b>Umgebung</b> werden Schlüssel mit ihrem Wert gespeichert. Sie können in der URL, den Attributen, dem JSON und den Headern verwendet werden:</p>
@@ -168,7 +168,7 @@ language.de = {
   ayuda_ventanas: `
     <h3>Mehrere Fenster</h3>
     <p>Jedes Fenster hat eigene Tabs, aber die Umgebung und die gespeicherten Anfragen sind in allen gleich: was eines ändert, sehen die anderen.
-      Beim erneuten Öffnen von Palomo werden die Tabs des Hauptfensters wiederhergestellt, die der mit <b>Neues Fenster</b> geöffneten Fenster nicht.</p>`,
+      Beim erneuten Öffnen von Palomo API-geon werden die Tabs des Hauptfensters wiederhergestellt, die der mit <b>Neues Fenster</b> geöffneten Fenster nicht.</p>`,
   ayuda_atajos: `
     <h3>Tastenkürzel</h3>
     <ul>

@@ -1,8 +1,8 @@
 {
   "name": "palomo",
-  "productName": "Palomo",
+  "productName": "Palomo API-geon",
   "version": "0.0.1",
-  "description": "Palomo, para probar APIs",
+  "description": "Palomo API-geon, para probar APIs",
   "desktopName": "palomo.desktop",
   "homepage": "https://github.com/tonyponyy/palomo",
   "main": "src/main.js",
@@ -11,7 +11,9 @@
     "predist": "node scripts/sincronizar_version.js",
     "dist": "electron-builder --linux",
     "preappimage": "node scripts/sincronizar_version.js",
-    "appimage": "electron-builder --linux AppImage"
+    "appimage": "electron-builder --linux AppImage",
+    "prewin": "node scripts/sincronizar_version.js",
+    "win": "electron-builder --win nsis portable"
   },
   "author": {
     "name": "Antoni Andreu",
@@ -24,7 +26,7 @@
   },
   "build": {
     "appId": "com.tonypony.palomo",
-    "productName": "Palomo",
+    "productName": "Palomo API-geon",
     "files": [
       "src/**"
     ],
@@ -38,7 +40,22 @@
       "syncDesktopName": true
     },
     "appImage": {
-      "artifactName": "Palomo-${version}.AppImage"
+      "artifactName": "Palomo-API-geon-${version}.AppImage"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "Palomo-API-geon-${version}-instalador.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "portable": {
+      "artifactName": "Palomo-API-geon-${version}-portable.exe"
     }
   }
 }

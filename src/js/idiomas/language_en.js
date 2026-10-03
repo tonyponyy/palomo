@@ -48,7 +48,7 @@ language.en = {
   estado: "Status : %estado%",
   enviando: "<i>Sending...</i>",
   json_no_valido: "<b>Invalid JSON</b> %error%",
-  cerrado_sin_respuesta: "<i>Palomo was closed before the response arrived</i>",
+  cerrado_sin_respuesta: "<i>Palomo API-geon was closed before the response arrived</i>",
   tiempo: "Time : %tiempo%",
   previsualizar: "Preview",
   guardada_ok: "Saved",
@@ -101,7 +101,7 @@ language.en = {
   detalle_atributos: "Attributes :",
   ninguno: "none",
 
-  ayuda_titulo: "Palomo help · version",
+  ayuda_titulo: "Palomo API-geon help · version",
   ayuda_variables: `
     <h3>Environment variables</h3>
     <p>The <b>Environment</b> stores keys with their value. They can be used in the URL, the attributes, the JSON and the headers:</p>
@@ -168,7 +168,7 @@ language.en = {
   ayuda_ventanas: `
     <h3>Several windows</h3>
     <p>Each window has its own tabs, but the environment and the saved requests are the same in all of them: what one changes the others see.
-      When Palomo is opened again the tabs of the main window are restored, the ones of windows opened with <b>New window</b> are not kept.</p>`,
+      When Palomo API-geon is opened again the tabs of the main window are restored, the ones of windows opened with <b>New window</b> are not kept.</p>`,
   ayuda_atajos: `
     <h3>Keyboard shortcuts</h3>
     <ul>

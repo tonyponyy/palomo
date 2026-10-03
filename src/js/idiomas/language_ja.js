@@ -48,7 +48,7 @@ language.ja = {
   estado: "ステータス : %estado%",
   enviando: "<i>送信中...</i>",
   json_no_valido: "<b>無効な JSON</b> %error%",
-  cerrado_sin_respuesta: "<i>レスポンスが届く前に Palomo が閉じられました</i>",
+  cerrado_sin_respuesta: "<i>レスポンスが届く前に Palomo API-geon が閉じられました</i>",
   tiempo: "時間 : %tiempo%",
   previsualizar: "プレビュー",
   guardada_ok: "保存しました",
@@ -101,7 +101,7 @@ language.ja = {
   detalle_atributos: "パラメータ :",
   ninguno: "なし",
 
-  ayuda_titulo: "Palomo ヘルプ · バージョン",
+  ayuda_titulo: "Palomo API-geon ヘルプ · バージョン",
   ayuda_variables: `
     <h3>環境変数</h3>
     <p><b>環境</b>にはキーと値が保存されます。URL、パラメータ、JSON、ヘッダーで使えます:</p>
@@ -168,7 +168,7 @@ language.ja = {
   ayuda_ventanas: `
     <h3>複数のウィンドウ</h3>
     <p>ウィンドウごとにタブがありますが、環境と保存済みリクエストはすべてのウィンドウで共通です: 1つで変更すると他でも見えます。
-      Palomo を再び開くとメインウィンドウのタブが復元されます。<b>新しいウィンドウ</b>で開いたウィンドウのタブは保持されません。</p>`,
+      Palomo API-geon を再び開くとメインウィンドウのタブが復元されます。<b>新しいウィンドウ</b>で開いたウィンドウのタブは保持されません。</p>`,
   ayuda_atajos: `
     <h3>キーボードショートカット</h3>
     <ul>

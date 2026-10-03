@@ -1,4 +1,4 @@
-# Palomo
+# Palomo API-geon
 
 <img src="build/icon.png" width="64" align="right">
 
@@ -29,7 +29,12 @@ npm start
 ```bash
 npm run dist       # AppImage y .deb (Linux)
 npm run appimage   # solo AppImage
+npm run win        # instalador y .exe portable (Windows)
 ```
+
+O todo de una vez (AppImage, .deb y .exe) con `scripts/compilar.sh`.
+
+Para compilar para Windows desde Linux hace falta Wine (`sudo apt install wine`).
 
 Los paquetes se generan en `dist/`. La versión se toma de la constante `VERSION`
 de `src/palomo.html` y se copia a `package.json` antes de compilar.
@@ -37,7 +42,7 @@ de `src/palomo.html` y se copia a `package.json` antes de compilar.
 ## Estructura
 
 ```
-├── build/            recursos para electron-builder (icono)
+├── build/            recursos para electron-builder (iconos)
 ├── scripts/          utilidades de compilación
 └── src/
     ├── main.js       proceso principal de Electron

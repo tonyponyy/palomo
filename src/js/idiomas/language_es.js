@@ -48,7 +48,7 @@ language.es = {
   estado: "Estado : %estado%",
   enviando: "<i>Enviando...</i>",
   json_no_valido: "<b>JSON no valido</b> %error%",
-  cerrado_sin_respuesta: "<i>Se cerro Palomo antes de que llegara la respuesta</i>",
+  cerrado_sin_respuesta: "<i>Se cerro Palomo API-geon antes de que llegara la respuesta</i>",
   tiempo: "Tiempo : %tiempo%",
   previsualizar: "Previsualizar",
   guardada_ok: "Guardada",
@@ -101,7 +101,7 @@ language.es = {
   detalle_atributos: "Atributos :",
   ninguno: "ninguno",
 
-  ayuda_titulo: "Ayuda de Palomo · version",
+  ayuda_titulo: "Ayuda de Palomo API-geon · version",
   ayuda_variables: `
     <h3>Variables del entorno</h3>
     <p>En <b>Entorno</b> se guardan claves con su valor. Se pueden usar en la direccion, en los atributos, en el JSON y en las cabeceras:</p>
@@ -168,7 +168,7 @@ language.es = {
   ayuda_ventanas: `
     <h3>Varias ventanas</h3>
     <p>Cada ventana tiene sus pestañas, pero el entorno y las peticiones guardadas son los mismos en todas: lo que cambia una lo ven las demas.
-      Al volver a abrir Palomo se recuperan las pestañas de la ventana principal, las de las ventanas abiertas con <b>Nueva ventana</b> no se conservan.</p>`,
+      Al volver a abrir Palomo API-geon se recuperan las pestañas de la ventana principal, las de las ventanas abiertas con <b>Nueva ventana</b> no se conservan.</p>`,
   ayuda_atajos: `
     <h3>Atajos de teclado</h3>
     <ul>
