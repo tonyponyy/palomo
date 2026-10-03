@@ -11,7 +11,7 @@ Cliente de escritorio sencillo para probar APIs HTTP, hecho con Electron.
 | Sistema | Archivo |
 |---|---|
 | Linux | `Palomo-API-geon-x.x.x.AppImage` (dale permiso de ejecución y ábrelo) o `palomo_x.x.x_amd64.deb` (Ubuntu / Debian) |
-| Windows | `Palomo-API-geon-x.x.x-instalador.exe` o `Palomo-API-geon-x.x.x-portable.exe` (no necesita instalarse) |
+| Windows | `Palomo-API-geon-x.x.x-windows-portable.zip` (no necesita instalarse: descomprímelo y abre `Palomo API-geon.exe`) |
 
 > En Windows puede salir el aviso "Windows protegió su PC" porque el programa no está firmado.
 > Pulsa en **Más información → Ejecutar de todas formas**.
@@ -98,10 +98,10 @@ npm start
 ```bash
 npm run dist       # AppImage y .deb (Linux)
 npm run appimage   # solo AppImage
-npm run win        # instalador y .exe portable (Windows)
+npm run win        # instalador .exe y .zip portable (Windows)
 ```
 
-O todo de una vez (AppImage, .deb y .exe) con `scripts/compilar.sh`.
+O todo de una vez (AppImage, .deb, .exe y .zip) con `scripts/compilar.sh`.
 
 Para compilar para Windows desde Linux hace falta Wine (`sudo apt install wine`).
 
