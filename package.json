@@ -13,7 +13,7 @@
     "preappimage": "node scripts/sincronizar_version.js",
     "appimage": "electron-builder --linux AppImage",
     "prewin": "node scripts/sincronizar_version.js",
-    "win": "electron-builder --win nsis portable"
+    "win": "electron-builder --win nsis zip"
   },
   "author": {
     "name": "Antoni Andreu",
@@ -45,17 +45,15 @@
     "win": {
       "target": [
         "nsis",
-        "portable"
+        "zip"
       ],
-      "icon": "build/icon.ico"
+      "icon": "build/icon.ico",
+      "artifactName": "Palomo-API-geon-${version}-windows-portable.${ext}"
     },
     "nsis": {
       "artifactName": "Palomo-API-geon-${version}-instalador.exe",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
-    },
-    "portable": {
-      "artifactName": "Palomo-API-geon-${version}-portable.exe"
     }
   }
 }

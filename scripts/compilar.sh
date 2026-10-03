@@ -20,7 +20,7 @@ fi
 if ! command -v wine > /dev/null; then
   fallos="$fallos .exe (WINE SIN INSTALAR)"
 elif npm run win; then
-  creados="$creados $(ls -t dist/*-instalador.exe | head -1) $(ls -t dist/*-portable.exe | head -1)"
+  creados="$creados $(ls -t dist/*-instalador.exe | head -1) $(ls -t dist/*-windows-portable.zip | head -1)"
 else
   fallos="$fallos .exe,"
 fi
