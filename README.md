@@ -11,7 +11,8 @@ Cliente de escritorio sencillo para probar APIs HTTP, hecho con Electron.
 | Sistema | Archivo |
 |---|---|
 | Linux | `Palomo-API-geon-x.x.x.AppImage` (dale permiso de ejecución y ábrelo) o `palomo_x.x.x_amd64.deb` (Ubuntu / Debian) |
-| Windows | `Palomo-API-geon-x.x.x-windows-portable.zip` (no necesita instalarse: descomprímelo y abre `Palomo API-geon.exe`) |
+| Windows | `Palomo-API-geon-x.x.x-windows-portable.zip` **(recomendado)**: no necesita instalarse. Haz clic derecho → *Extraer todo* y abre `Palomo API-geon.exe` de la carpeta (no lo abras desde dentro del zip, no funcionaría) |
+| Windows | `Palomo-API-geon-x.x.x-instalador.exe`: lo instala en el ordenador y crea accesos directos |
 
 > En Windows puede salir el aviso "Windows protegió su PC" porque el programa no está firmado.
 > Pulsa en **Más información → Ejecutar de todas formas**.
@@ -47,8 +48,16 @@ detrás de otra (esperando cada respuesta) o cada cierto tiempo.
 ![Resultado del envío múltiple](capturas/palomo2.png)
 
 El resultado del envío múltiple: cuántas han ido bien y cuántas han fallado, los tiempos mínimo,
-medio y máximo, y cada respuesta por separado. Aquí `{{$i}}` se cambia por el número de envío
-(`test_1`, `test_2`…) y `{{$num}}` suma 1 en cada petición (`1234`, `1235`…).
+medio y máximo, y cada respuesta por separado.
+
+En el cuerpo se ven los dos iteradores en acción:
+
+- **`{{$i}}`** (en morado) es el número de envío, así que `"test_{{$i}}"` llega como
+  `test_1`, `test_2`, `test_3`…
+- **`{{$num}}`** (en naranja) usa la variable `num` del entorno como contador: cada petición
+  envía su valor y le suma 1, así que `userId` llega como `1234`, `1235`, `1236`…
+
+Más detalles en [Iteradores](#iteradores-i-y-variable).
 
 ### Entorno
 
@@ -80,11 +89,61 @@ del programa, ya sean imágenes o páginas web, o abrirlas en una pestaña del n
 - Variables de entorno: escribe `{{clave}}` en la URL, las cabeceras o el JSON
   - `{{$clave}}` envía el valor y después le suma 1
   - `{{$i}}` es el número de envío
+  - Mira [cómo funcionan los iteradores](#iteradores-i-y-variable)
 - Extraer valores de la respuesta al entorno
 - Envío múltiple: en paralelo, en secuencia o a intervalos
 - Disponible en español, català, English, Deutsch, русский, 中文 y 日本語
 
+### Iteradores `{{$i}}` y `{{$variable}}`
+
+Sirven para que cada petición sea distinta sin tener que cambiarla a mano, sobre todo con el
+envío múltiple. Se pueden escribir en la dirección, en las cabeceras y en el cuerpo JSON.
+
+**`{{$i}}`: número de envío**
+
+Se cambia por el número de la petición dentro del envío: `1`, `2`, `3`… en un envío múltiple,
+y siempre `1` en un envío normal. No guarda nada: en el siguiente envío múltiple vuelve a
+empezar por `1`.
+
+**`{{$variable}}`: contador del entorno**
+
+Usa una variable del entorno como contador. Envía su valor actual y, después, le suma 1 y lo
+guarda en el entorno, así que la siguiente petición (ahora o cuando vuelvas a abrir el programa)
+sigue por donde se quedó.
+
+- Solo funciona si la variable es un número entero (también negativo). Si no existe o no es un
+  número, se deja tal cual y se marca en rojo.
+- Se suma 1 por petición, aunque uses el mismo `{{$variable}}` varias veces en ella.
+- Respeta los ceros a la izquierda: `007` → `008` → `009`.
+- `{{variable}}`, sin el `$`, envía el valor sin sumarle nada.
+
+**Ejemplo**
+
+Con la variable `num` = `1234` en el entorno y este cuerpo, enviado 3 veces con el envío múltiple:
+
+```json
+{
+  "title": "test_{{$i}}",
+  "userId": {{$num}}
+}
+```
+
+| Envío | `title` | `userId` |
+|---|---|---|
+| 1 | `test_1` | `1234` |
+| 2 | `test_2` | `1235` |
+| 3 | `test_3` | `1236` |
+
+Al terminar, `num` vale `1237` en el entorno. Si lo vuelves a enviar 3 veces, `title` vuelve a
+ir de `test_1` a `test_3`, pero `userId` sigue en `1237`, `1238`, `1239`.
+
+Mientras escribes, cada tipo se resalta con un color:
+<code>{{variable}}</code> en verde, <code>{{$variable}}</code> en naranja, <code>{{$i}}</code> en
+morado y lo que no existe en rojo.
+
 ## Ejecutar desde el código
+> ⚠️ Esto es unicamente para compilarlo si se hacen cambios,**si quieres usarlo sin mas, pulsa en el enlace de descargas de arriba.**.
+
 
 Necesitas [Node.js](https://nodejs.org/) 18 o superior.
 
