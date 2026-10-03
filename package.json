@@ -1,0 +1,44 @@
+{
+  "name": "palomo",
+  "productName": "Palomo",
+  "version": "0.0.1",
+  "description": "Palomo, para probar APIs",
+  "desktopName": "palomo.desktop",
+  "homepage": "https://github.com/tonyponyy/palomo",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "predist": "node scripts/sincronizar_version.js",
+    "dist": "electron-builder --linux",
+    "preappimage": "node scripts/sincronizar_version.js",
+    "appimage": "electron-builder --linux AppImage"
+  },
+  "author": {
+    "name": "Antoni Andreu",
+    "email": "antoniandreut@gmail.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.tonypony.palomo",
+    "productName": "Palomo",
+    "files": [
+      "src/**"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development",
+      "icon": "build/icon.png",
+      "syncDesktopName": true
+    },
+    "appImage": {
+      "artifactName": "Palomo-${version}.AppImage"
+    }
+  }
+}

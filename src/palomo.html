@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/idiomas/language_es.js"></script>
+    <script src="js/idiomas/language_zh.js"></script>
+    <script src="js/idiomas/language_en.js"></script>
+    <script src="js/idiomas/language_ca.js"></script>
+    <script src="js/idiomas/language_ru.js"></script>
+    <script src="js/idiomas/language_de.js"></script>
+    <script src="js/idiomas/language_ja.js"></script>
+    <script src="js/estado.js"></script>
+    <script src="js/peticiones.js"></script>
+    <script src="js/front.js"></script>
+    <script src="js/main.js"></script>
+    <link rel='stylesheet' type='text/css' href='css/palomo.css'> </link>
+    <title>Palomo</title>
+</head>
+<body>
+    <header id="barra_superior">
+        <div id="logo"><img src="img/palomok.png"> Palomo</div>
+        <div id="acciones">
+            <button class="button_send" type="button" onclick="abrir_entorno()" data-texto="entorno"></button>
+            <button class="button_send" type="button" onclick="abrir_guardadas()" data-texto="guardadas"></button>
+            <button class="button_send" type="button" onclick="abrir_configuracion()" data-texto="configuracion"></button>
+            <button class="button_send" type="button" onclick="abrir_ayuda()" data-texto="ayuda"></button>
+        </div>
+    </header>
+    <section id="bar">
+        <label for="url" data-texto="direccion"></label>
+        <input id="url" type="text" onkeydown="tecla_url(event)">
+        <label for="met" data-texto="metodo"></label>
+        <select id="met">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+        </select>
+        <label for="tipo_envio" data-texto="enviar_como"></label>
+        <select id="tipo_envio" onchange="cambiar_tipo_envio()">
+            <option value="json" selected>JSON</option>
+            <option value="clave_valor" data-texto="clave_valor"></option>
+        </select>
+        <label class="check_multiple"><input id="multiple" type="checkbox" onchange="cambiar_multiple()"> <span id="texto_multiple" onclick="pulsa_texto_multiple(event)" data-texto="multiple"></span></label>
+        <button id="boton_enviar" class="button_send"type="button" onclick="loadDoc()"><span id="texto_enviar" data-texto="enviar"></span><img id="icono_enviar" src="img/mail.png" alt=""><img id="icono_parar" src="img/cerrar.png" alt=""></button>
+        <div class="pestanas_seccion">
+            <button id="seccion_cuerpo" onclick="cambia_seccion('cuerpo')" data-texto="cuerpo"></button>
+            <button id="seccion_cabeceras" onclick="cambia_seccion('cabeceras')" data-texto="cabeceras"></button>
+            <button id="seccion_extraer" onclick="cambia_seccion('extraer')" data-texto="guardar_en_entorno"></button>
+        </div>
+        <section id="panel_cuerpo" class="panel_seccion">
+            <div id="add_att"><span data-texto="anadir_atributo"></span> <button type="button" onclick="add_atribute()">+</button> </div>
+            <section id="atributes">
+                <div id="atts"> </div>
+            </section>
+            <section id="json_section">
+                <div id="editor_json">
+                    <pre id="json_resaltado" aria-hidden="true"></pre>
+                    <textarea  id="json_body" spellcheck="false" data-texto-placeholder="json_placeholder" oninput="pinta_json()" onkeydown="tecla_json(event)" onscroll="sincroniza_scroll_json()"></textarea>
+                </div>
+                <div id="barra_json">
+                    <span id="estado_json"></span>
+                    <button class="button_add" type="button" onclick="formatear_json()" data-texto-title="formatear_titulo" data-texto="formatear"></button>
+                </div>
+            </section>
+        </section>
+        <section id="panel_cabeceras" class="panel_seccion">
+            <div><span data-texto="anadir_cabecera"></span> <button type="button" onclick="add_fila('cabeceras')">+</button></div>
+            <div id="cabeceras" class="lista_filas"></div>
+            <p class="ayuda" data-texto="ayuda_cabeceras"></p>
+        </section>
+        <section id="panel_extraer" class="panel_seccion">
+            <div><span data-texto="anadir_valor"></span> <button type="button" onclick="add_fila('extracciones')">+</button></div>
+            <div id="extracciones" class="lista_filas"></div>
+            <p class="ayuda" data-texto="ayuda_extraer"></p>
+        </section>
+    </section>
+<section id="tab_section">
+    <div id="tab_containers">
+
+    </div>
+    <button onclick="create_tab()" class="button_add"> + </button>
+</section>
+
+<section id="down_section">
+    <div id="status_box">
+        <img id="palomo"></img>
+        <div id="status"></div>  
+        <button id="boton_previsualizar" class="button_add" onclick="previsualizar_html()" data-texto="previsualizar"></button>
+        <div id="status_derecha">
+            <div id="tiempos">
+                <div id="tiempo"></div>
+                <div id="fecha_peticion"></div>
+            </div>
+            <span id="guardado_ok" data-texto="guardada_ok"></span>
+            <button id="boton_guardar" class="button_icono" onclick="guardar_peticion()" data-texto-title="guardar_peticion"><img src="img/save.png"></button>
+        </div>
+    </div>  
+    <div id="aviso_entorno"></div>
+    <div class="pestanas_seccion">
+        <button id="respuesta_cuerpo" onclick="cambia_vista_respuesta('cuerpo')" data-texto="cuerpo"></button>
+        <button id="respuesta_cabeceras" onclick="cambia_vista_respuesta('cabeceras')" data-texto="cabeceras"></button>
+    </div>
+    <pre id="salida"><p id="demo"></p></pre>
+    <pre id="salida_cabeceras"></pre>
+</section>
+
+<section id="modal" class="modal" onclick="cerrar_modal()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span id="modal_url"></span>
+            <div class="modal_botones">
+                <button onclick="abrir_pestana()" class="button_add" data-texto="abrir_pestana_nueva"></button>
+                <button onclick="cerrar_modal()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="modal_contenido" class="modal_contenido"></div>
+    </div>
+</section>
+
+<section id="modal_entorno" class="modal" onclick="cerrar_entorno()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span data-texto="entorno"></span>
+            <div class="modal_botones">
+                <button onclick="add_variable()" class="button_add" data-texto="anadir_variable"></button>
+                <button onclick="cerrar_entorno()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="entorno_contenido" class="modal_contenido">
+            <div id="variables"></div>
+            <p class="ayuda" data-texto="entorno_ayuda_1"></p>
+            <p class="ayuda" data-texto="entorno_ayuda_2"></p>
+            <p class="ayuda" data-texto="entorno_ayuda_3"></p>
+        </div>
+    </div>
+</section>
+
+<section id="modal_nombre" class="modal" onclick="cerrar_nombre()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span data-texto="guardar_peticion"></span>
+            <div class="modal_botones">
+                <button onclick="cerrar_nombre()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="nombre_contenido" class="modal_contenido">
+            <label for="nombre_peticion" data-texto="nombre"></label>
+            <input id="nombre_peticion" type="text" onkeydown="tecla_nombre(event)">
+            <button class="button_send" onclick="confirmar_guardar()" data-texto="guardar"></button>
+        </div>
+    </div>
+</section>
+
+<section id="modal_guardadas" class="modal" onclick="cerrar_guardadas()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span data-texto="peticiones_guardadas"></span>
+            <div class="modal_botones">
+                <button onclick="cerrar_guardadas()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="guardadas_contenido" class="modal_contenido">
+            <div id="guardadas"></div>
+        </div>
+    </div>
+</section>
+
+<section id="modal_multiple" class="modal" onclick="cancelar_multiple()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span data-texto="envio_multiple"></span>
+            <div class="modal_botones">
+                <button onclick="cancelar_multiple()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="multiple_contenido" class="modal_contenido">
+            <p>
+                <label for="multiple_veces" data-texto="cuantas_veces"></label>
+                <input id="multiple_veces" type="number" min="1" max="1000" value="5">
+            </p>
+            <p data-texto="como_se_envian"></p>
+            <label class="opcion_multiple"><input type="radio" name="multiple_modo" value="paralelo" onchange="cambiar_modo_multiple()"> <span data-texto="modo_paralelo"></span> <span class="ayuda" data-texto="modo_paralelo_ayuda"></span></label>
+            <label class="opcion_multiple"><input type="radio" name="multiple_modo" value="secuencial" onchange="cambiar_modo_multiple()"> <span data-texto="modo_secuencial"></span> <span class="ayuda" data-texto="modo_secuencial_ayuda"></span></label>
+            <label class="opcion_multiple"><input type="radio" name="multiple_modo" value="intervalo" onchange="cambiar_modo_multiple()"> <span data-texto="modo_intervalo"></span> <span class="ayuda" data-texto="modo_intervalo_ayuda"></span></label>
+            <p id="multiple_intervalo_caja">
+                <label for="multiple_intervalo" data-texto="cada_ms"></label>
+                <input id="multiple_intervalo" type="number" min="0" value="1000">
+            </p>
+            <button class="button_send" onclick="aceptar_multiple()" data-texto="aceptar"></button>
+        </div>
+    </div>
+</section>
+<section id="modal_configuracion" class="modal" onclick="cerrar_configuracion()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span data-texto="configuracion"></span>
+            <div class="modal_botones">
+                <button onclick="cerrar_configuracion()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="configuracion_contenido" class="modal_contenido">
+            <h3 data-texto="idioma"></h3>
+            <select id="selector_idioma" onchange="cambiar_idioma()">
+                <option value="es">Español</option>
+                <option value="zh">中文</option>
+                <option value="en">English</option>
+                <option value="ca">Català</option>
+                <option value="ru">Русский</option>
+                <option value="de">Deutsch</option>
+                <option value="ja">日本語</option>
+            </select>
+        </div>
+    </div>
+</section>
+<section id="modal_ayuda" class="modal" onclick="cerrar_ayuda()">
+    <div class="modal_box" onclick="event.stopPropagation()">
+        <div class="modal_bar">
+            <span><span data-texto="ayuda_titulo"></span> <b class="version"></b></span>
+            <div class="modal_botones">
+                <button onclick="cerrar_ayuda()" class="delete_tab" data-texto-title="cerrar"></button>
+            </div>
+        </div>
+        <div id="ayuda_contenido" class="modal_contenido">
+            <div data-texto="ayuda_variables"></div>
+            <div data-texto="ayuda_escribir_json"></div>
+            <div data-texto="ayuda_multiple"></div>
+            <div data-texto="ayuda_cabeceras_seccion"></div>
+            <div data-texto="ayuda_guardar_entorno"></div>
+            <div data-texto="ayuda_guardadas"></div>
+            <div data-texto="ayuda_respuesta"></div>
+            <div data-texto="ayuda_sesion"></div>
+            <div data-texto="ayuda_ventanas"></div>
+            <div data-texto="ayuda_atajos"></div>
+        </div>
+    </div>
+</section>
+<script>
+    const VERSION = "0.0.1"
+</script>
+</body>
+</html>
