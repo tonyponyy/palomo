@@ -94,6 +94,22 @@ language.de = {
   guardar: "Speichern",
   peticiones_guardadas: "Gespeicherte Anfragen",
   no_hay_guardadas: "Es gibt keine gespeicherten Anfragen, speichere eine mit dem Diskettensymbol",
+  coleccion: "Sammlung",
+  nombre_coleccion: "Name der Sammlung",
+  crear_coleccion: "Neue Sammlung",
+  renombrar_coleccion: "Umbenennen",
+  borrar_coleccion: "Sammlung löschen",
+  importar: "Importieren",
+  exportar: "Exportieren",
+  exportar_todo: "Alles exportieren",
+  coleccion_general: "Allgemein",
+  coleccion_sin_nombre: "Gib einen Namen für die Sammlung ein",
+  coleccion_ya_existe: "Es gibt schon eine Sammlung mit diesem Namen",
+  confirmar_borrar_coleccion: "Die Sammlung %nombre% mit ihren %cuantas% Anfragen wird gelöscht. Sicher?",
+  mover_a_coleccion: "In eine andere Sammlung verschieben",
+  coleccion_vacia: "In dieser Sammlung gibt es keine Anfragen",
+  importadas: "%cuantas% Anfragen importiert",
+  importar_error: "Die Datei ist kein gültiges Anfragen-JSON",
   recuperar: "Wiederherstellen",
   detalle_direccion: "URL :",
   detalle_cabeceras: "Header :",
@@ -152,7 +168,8 @@ language.de = {
   ayuda_guardadas: `
     <h3>Gespeicherte Anfragen</h3>
     <p>Die Diskette speichert die Anfrage des Tabs unter einem Namen: URL, Methode, Body, Header, was in der Umgebung gespeichert wird und die Optionen des Mehrfachversands.
-      In <b>Gespeicherte Anfragen</b> zeigt ein Klick auf den Namen den Inhalt, und <b>Wiederherstellen</b> öffnet sie in einem neuen Tab.</p>`,
+      In <b>Gespeicherte Anfragen</b> zeigt ein Klick auf den Namen den Inhalt, und <b>Wiederherstellen</b> öffnet sie in einem neuen Tab.</p>
+    <p>Anfragen werden in <b>Sammlungen</b> (die Reiter mit dem Ordner) organisiert. Beim Speichern wählt man die Sammlung, und in der Liste kann man sie verschieben. <b>Exportieren</b> lädt die angezeigte Sammlung als JSON herunter, <b>Alles exportieren</b> alle, und <b>Importieren</b> fügt sie aus einem exportierten JSON hinzu.</p>`,
   ayuda_respuesta: `
     <h3>Die Antwort</h3>
     <ul>

@@ -150,6 +150,8 @@
         <div id="nombre_contenido" class="modal_contenido">
             <label for="nombre_peticion" data-texto="nombre"></label>
             <input id="nombre_peticion" type="text" onkeydown="tecla_nombre(event)">
+            <img src="img/carpeta.png" class="icono_carpeta">
+            <select id="coleccion_peticion" data-texto-title="coleccion"></select>
             <button class="button_send" onclick="confirmar_guardar()" data-texto="guardar"></button>
         </div>
     </div>
@@ -162,6 +164,19 @@
             <div class="modal_botones">
                 <button onclick="cerrar_guardadas()" class="delete_tab" data-texto-title="cerrar"></button>
             </div>
+        </div>
+        <div id="colecciones_barra"></div>
+        <div id="colecciones_herramientas">
+            <input id="nombre_coleccion" type="text" data-texto-placeholder="nombre_coleccion" onkeydown="tecla_coleccion(event)">
+            <button onclick="crear_coleccion()" data-texto="crear_coleccion"></button>
+            <button id="boton_renombrar_coleccion" onclick="renombrar_coleccion()" data-texto="renombrar_coleccion"></button>
+            <button id="boton_borrar_coleccion" onclick="borrar_coleccion()" data-texto="borrar_coleccion"></button>
+            <span id="colecciones_mensaje"></span>
+            <span class="separador"></span>
+            <button onclick="document.getElementById('archivo_importar').click()" data-texto="importar"></button>
+            <button onclick="exportar_coleccion(coleccion_actual)" data-texto="exportar"></button>
+            <button onclick="exportar_coleccion()" data-texto="exportar_todo"></button>
+            <input id="archivo_importar" type="file" accept=".json,application/json" onchange="importar_guardadas(this)">
         </div>
         <div id="guardadas_contenido" class="modal_contenido">
             <div id="guardadas"></div>
@@ -239,7 +254,7 @@
     </div>
 </section>
 <script>
-    const VERSION = "0.0.1"
+    const VERSION = "0.1.0"
 </script>
 </body>
 </html>

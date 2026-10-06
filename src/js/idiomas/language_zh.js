@@ -94,6 +94,22 @@ language.zh = {
   guardar: "保存",
   peticiones_guardadas: "已保存的请求",
   no_hay_guardadas: "没有已保存的请求，可以用软盘按钮保存一个",
+  coleccion: "集合",
+  nombre_coleccion: "集合名称",
+  crear_coleccion: "新建集合",
+  renombrar_coleccion: "重命名",
+  borrar_coleccion: "删除集合",
+  importar: "导入",
+  exportar: "导出",
+  exportar_todo: "全部导出",
+  coleccion_general: "通用",
+  coleccion_sin_nombre: "请输入集合名称",
+  coleccion_ya_existe: "已存在同名集合",
+  confirmar_borrar_coleccion: "将删除集合 %nombre% 及其 %cuantas% 个请求。确定吗？",
+  mover_a_coleccion: "移动到其他集合",
+  coleccion_vacia: "此集合中没有请求",
+  importadas: "已导入 %cuantas% 个请求",
+  importar_error: "该文件不是有效的请求 JSON",
   recuperar: "恢复",
   detalle_direccion: "地址：",
   detalle_cabeceras: "请求头：",
@@ -152,7 +168,8 @@ language.zh = {
   ayuda_guardadas: `
     <h3>已保存的请求</h3>
     <p>软盘按钮会用一个名称保存当前标签页的请求：地址、方法、请求体、请求头、要保存到环境的内容以及多次发送的选项。
-      在<b>已保存的请求</b>中，点击名称可以查看内容，<b>恢复</b>会在新标签页中打开它。</p>`,
+      在<b>已保存的请求</b>中，点击名称可以查看内容，<b>恢复</b>会在新标签页中打开它。</p>
+    <p>请求按<b>集合</b>（带文件夹的标签页）组织。保存时选择集合，也可以在列表中把请求移动到其他集合。<b>导出</b>将当前集合下载为 JSON，<b>全部导出</b>导出所有集合，<b>导入</b>从导出的 JSON 中添加请求。</p>`,
   ayuda_respuesta: `
     <h3>响应</h3>
     <ul>

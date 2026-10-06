@@ -677,6 +677,7 @@ function cerrar_ayuda(){
     var tab = tabs[get_tab_position_from_array(settings.current_tab)]
     document.getElementById("nombre_peticion").value = ""
     document.getElementById("nombre_peticion").placeholder = tab.metodo + " " + create_url(tab.url)
+    document.getElementById("coleccion_peticion").innerHTML = opciones_colecciones(coleccion_actual)
     document.getElementById("modal_nombre").style.display = "flex"
     document.getElementById("nombre_peticion").focus()
   }
@@ -696,7 +697,9 @@ function cerrar_ayuda(){
     if (nombre == ""){
       nombre = document.getElementById("nombre_peticion").placeholder
     }
-    guardadas.push(new peticion_object(nombre, tab.url, tab.metodo, tab.tipo_envio, tab.json, tab.attributes, tab.multiple, tab.cabeceras, tab.extracciones))
+    var coleccion = document.getElementById("coleccion_peticion").value
+    guardadas.push(new peticion_object(nombre, tab.url, tab.metodo, tab.tipo_envio, tab.json, tab.attributes, tab.multiple, tab.cabeceras, tab.extracciones, coleccion))
+    coleccion_actual = coleccion
     guarda_guardadas()
     cerrar_nombre()
 
@@ -713,16 +716,220 @@ function cerrar_ayuda(){
     document.getElementById("modal_guardadas").style.display = "none"
   }
 
-  function pinta_guardadas(){
-    if (guardadas.length == 0){
-      document.getElementById("guardadas").innerHTML = '<p class="ayuda">'+texto("no_hay_guardadas")+'</p>'
+  function nombre_coleccion(coleccion){
+    return coleccion == ""? texto("coleccion_general"): coleccion
+  }
+
+  function opciones_colecciones(seleccionada){
+    var opciones = ""
+    var todas = [""].concat(colecciones)
+    for (let i = 0; i < todas.length; i++) {
+      var marcada = todas[i] == seleccionada? ' selected': ''
+      opciones += '<option value="'+escapa_atributo(todas[i])+'"'+marcada+'>'+escapa_html(nombre_coleccion(todas[i]))+'</option>'
+    }
+    return opciones
+  }
+
+  function cuenta_coleccion(coleccion){
+    return guardadas.filter(function(guardada){ return guardada.coleccion == coleccion }).length
+  }
+
+  function pinta_colecciones(){
+    var barra = ""
+    var todas = [""].concat(colecciones)
+    for (let i = 0; i < todas.length; i++) {
+      var clase = todas[i] == coleccion_actual? "coleccion coleccion_activa": "coleccion"
+      barra += '<button class="'+clase+'" onclick="cambia_coleccion('+i+')"><img src="img/carpeta.png" class="icono_carpeta"> '
+        +escapa_html(nombre_coleccion(todas[i]))+' <span class="cuenta">('+cuenta_coleccion(todas[i])+')</span></button>'
+    }
+    document.getElementById("colecciones_barra").innerHTML = barra
+    var es_general = coleccion_actual == ""
+    document.getElementById("boton_renombrar_coleccion").disabled = es_general
+    document.getElementById("boton_borrar_coleccion").disabled = es_general
+  }
+
+  function cambia_coleccion(i){
+    coleccion_actual = i == 0? "": colecciones[i-1]
+    document.getElementById("colecciones_mensaje").textContent = ""
+    pinta_guardadas()
+  }
+
+  function tecla_coleccion(event){
+    if (event.key == "Enter"){ crear_coleccion() }
+  }
+
+  function lee_nombre_coleccion(){
+    var nombre = document.getElementById("nombre_coleccion").value.trim()
+    if (nombre == ""){
+      muestra_mensaje_colecciones(texto("coleccion_sin_nombre"))
+      return null
+    }
+    if (colecciones.indexOf(nombre) != -1){
+      muestra_mensaje_colecciones(texto("coleccion_ya_existe"))
+      return null
+    }
+    return nombre
+  }
+
+  function crear_coleccion(){
+    var nombre = lee_nombre_coleccion()
+    if (nombre == null){ return }
+    colecciones.push(nombre)
+    coleccion_actual = nombre
+    document.getElementById("nombre_coleccion").value = ""
+    guarda_guardadas()
+    pinta_guardadas()
+  }
+
+  function renombrar_coleccion(){
+    if (coleccion_actual == ""){ return }
+    var nombre = lee_nombre_coleccion()
+    if (nombre == null){ return }
+    colecciones[colecciones.indexOf(coleccion_actual)] = nombre
+    for (let i = 0; i < guardadas.length; i++) {
+      if (guardadas[i].coleccion == coleccion_actual){ guardadas[i].coleccion = nombre }
+    }
+    coleccion_actual = nombre
+    document.getElementById("nombre_coleccion").value = ""
+    guarda_guardadas()
+    pinta_guardadas()
+  }
+
+  function borrar_coleccion(){
+    if (coleccion_actual == ""){ return }
+    var cuantas = cuenta_coleccion(coleccion_actual)
+    if (cuantas > 0 && !confirm(texto("confirmar_borrar_coleccion", {nombre: coleccion_actual, cuantas: cuantas}))){
       return
     }
-    document.getElementById("guardadas").innerHTML = ""
+    var borrada = coleccion_actual
+    guardadas = guardadas.filter(function(guardada){ return guardada.coleccion != borrada })
+    colecciones.splice(colecciones.indexOf(borrada), 1)
+    coleccion_actual = ""
+    guarda_guardadas()
+    pinta_guardadas()
+  }
+
+  function mover_guardada(i, coleccion){
+    guardadas[i].coleccion = coleccion
+    guarda_guardadas()
+    pinta_guardadas()
+  }
+
+  function muestra_mensaje_colecciones(mensaje){
+    document.getElementById("colecciones_mensaje").textContent = mensaje
+  }
+
+  // sin coleccion exporta todas
+  function exportar_coleccion(coleccion){
+    var nombres = coleccion == undefined? [""].concat(colecciones): [coleccion]
+    var datos = {palomo: "colecciones", version: 1, colecciones: []}
+    for (let i = 0; i < nombres.length; i++) {
+      var peticiones = guardadas.filter(function(guardada){ return guardada.coleccion == nombres[i] }).map(function(guardada){
+        var copia = Object.assign({}, guardada)
+        delete copia.coleccion
+        return copia
+      })
+      datos.colecciones.push({nombre: nombres[i], peticiones: peticiones})
+    }
+    var archivo = coleccion == undefined? "palomo_guardadas": "palomo_" + nombre_coleccion(coleccion)
+    var enlace = document.createElement("a")
+    enlace.href = URL.createObjectURL(new Blob([JSON.stringify(datos, null, 2)], {type: "application/json"}))
+    enlace.download = archivo.replace(/[\\/:*?"<>|]/g, "_") + ".json"
+    document.body.appendChild(enlace)
+    enlace.click()
+    enlace.remove()
+    setTimeout(function(){ URL.revokeObjectURL(enlace.href) }, 1000)
+  }
+
+  function importar_guardadas(input){
+    var archivo = input.files[0]
+    input.value = ""
+    if (archivo == undefined){ return }
+    archivo.text().then(function(contenido){
+      var datos = JSON.parse(contenido)
+      // un array suelto de peticiones va a la coleccion que se esta viendo
+      var lista = Array.isArray(datos)? [{nombre: coleccion_actual, peticiones: datos}]: datos.colecciones
+      if (!Array.isArray(lista)){ throw new Error("formato") }
+      var importadas = 0
+      for (let i = 0; i < lista.length; i++) {
+        var coleccion = typeof lista[i].nombre == "string"? lista[i].nombre.trim(): ""
+        if (coleccion != "" && colecciones.indexOf(coleccion) == -1){
+          colecciones.push(coleccion)
+        }
+        var peticiones = Array.isArray(lista[i].peticiones)? lista[i].peticiones: []
+        for (let j = 0; j < peticiones.length; j++) {
+          var peticion = limpia_importada(peticiones[j], coleccion)
+          if (peticion != null){
+            guardadas.push(peticion)
+            importadas++
+          }
+        }
+      }
+      guarda_guardadas()
+      pinta_guardadas()
+      muestra_mensaje_colecciones(texto("importadas", {cuantas: importadas}))
+    }).catch(function(e){
+      console.log("No se ha podido importar", e)
+      muestra_mensaje_colecciones(texto("importar_error"))
+    })
+  }
+
+  function limpia_importada(datos, coleccion){
+    if (datos == null || typeof datos != "object" || typeof datos.url != "string"){
+      return null
+    }
+    var metodo = typeof datos.metodo == "string"? datos.metodo.toUpperCase(): "GET"
+    var nombre = typeof datos.nombre == "string" && datos.nombre.trim() != ""? datos.nombre: metodo + " " + datos.url
+    var multiple = datos.multiple != null && typeof datos.multiple == "object"?
+      new multiple_object(datos.multiple.activo == true, Number(datos.multiple.veces) || 5, datos.multiple.modo || "paralelo", Number(datos.multiple.intervalo) || 1000): new multiple_object()
+    var peticion = new peticion_object(nombre, datos.url, metodo,
+      datos.tipo_envio == "clave_valor"? "clave_valor": "json",
+      typeof datos.json == "string"? datos.json: "",
+      lista_importada(datos.attributes, ["key", "value"]),
+      multiple,
+      lista_importada(datos.cabeceras, ["clave", "valor"]),
+      lista_importada(datos.extracciones, ["ruta", "clave"]),
+      coleccion)
+    if (typeof datos.fecha == "string"){ peticion.fecha = datos.fecha }
+    return peticion
+  }
+
+  // se queda con las filas que son objetos y pasa a texto los campos que se pintan
+  function lista_importada(lista, campos){
+    if (!Array.isArray(lista)){ return [] }
+    return lista.filter(function(fila){ return fila != null && typeof fila == "object" }).map(function(fila){
+      var limpia = Object.assign({}, fila)
+      for (let i = 0; i < campos.length; i++) {
+        limpia[campos[i]] = limpia[campos[i]] == undefined? "": String(limpia[campos[i]])
+      }
+      limpia.disabled = limpia.disabled == true
+      return limpia
+    })
+  }
+
+  function pinta_guardadas(){
+    pinta_colecciones()
+    var visibles = []
     for (let i = 0; i < guardadas.length; i++) {
-      document.getElementById("guardadas").innerHTML += '<div class="guardada" id="guardada'+i+'"><span class="metodo">'+escapa_html(guardadas[i].metodo)+'</span> <a class="nombre_guardada" onclick="ver_guardada('+i+')">'+escapa_html(guardadas[i].nombre)+'</a> <span class="fecha">'+escapa_html(guardadas[i].fecha)+'</span> <button onClick="borrar_guardada('+i+')"> '+texto("borrar")+' </button>'
+      if (guardadas[i].coleccion == coleccion_actual){ visibles.push(i) }
+    }
+    if (visibles.length == 0){
+      document.getElementById("guardadas").innerHTML = '<p class="ayuda">'+texto(guardadas.length == 0? "no_hay_guardadas": "coleccion_vacia")+'</p>'
+      return
+    }
+    var html = ""
+    for (let k = 0; k < visibles.length; k++) {
+      var i = visibles[k]
+      html += '<div class="guardada" id="guardada'+i+'"><span class="metodo '+clase_metodo(guardadas[i].metodo)+'">'+escapa_html(guardadas[i].metodo)+'</span> <a class="nombre_guardada" onclick="ver_guardada('+i+')">'+escapa_html(guardadas[i].nombre)+'</a> <span class="fecha">'+escapa_html(guardadas[i].fecha)+'</span>'
+        +' <select class="mover_guardada" title="'+escapa_atributo(texto("mover_a_coleccion"))+'" onchange="mover_guardada('+i+', this.value)">'+opciones_colecciones(guardadas[i].coleccion)+'</select>'
+        +' <button onClick="borrar_guardada('+i+')"> '+texto("borrar")+' </button>'
         +'<div class="detalle_guardada" id="detalle'+i+'">'+pinta_detalle_guardada(guardadas[i])+'<button class="button_add" onClick="recuperar_peticion('+i+')"> '+texto("recuperar")+' </button></div></div>'
     }
+    document.getElementById("guardadas").innerHTML = html
+  }
+
+  function clase_metodo(metodo){
+    return /^(GET|POST|PUT|PATCH|DELETE)$/.test(metodo)? "metodo_" + metodo.toLowerCase(): "metodo_otro"
   }
 
   function pinta_detalle_guardada(guardada){
@@ -831,6 +1038,10 @@ function cerrar_ayuda(){
         input.value = entorno[i].value
       }
     }
+  }
+
+  function escapa_atributo(cadena){
+    return escapa_html(cadena).replace(/"/g,"&quot;").replace(/'/g,"&#39;")
   }
 
   function escapa_html(cadena){

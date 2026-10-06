@@ -32,7 +32,7 @@ window.addEventListener("storage", function(evento){
       document.getElementById("selector_idioma").value = idioma
     }
   }
-  if (evento.key == "palomo_guardadas"){
+  if (evento.key == "palomo_guardadas" || evento.key == "palomo_colecciones"){
     carga_guardadas()
     if (document.getElementById("modal_guardadas").style.display == "flex"){
       pinta_guardadas()

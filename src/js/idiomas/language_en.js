@@ -94,6 +94,22 @@ language.en = {
   guardar: "Save",
   peticiones_guardadas: "Saved requests",
   no_hay_guardadas: "There are no saved requests, save one with the floppy disk button",
+  coleccion: "Collection",
+  nombre_coleccion: "Collection name",
+  crear_coleccion: "New collection",
+  renombrar_coleccion: "Rename",
+  borrar_coleccion: "Delete collection",
+  importar: "Import",
+  exportar: "Export",
+  exportar_todo: "Export all",
+  coleccion_general: "General",
+  coleccion_sin_nombre: "Type a name for the collection",
+  coleccion_ya_existe: "There is already a collection with that name",
+  confirmar_borrar_coleccion: "The collection %nombre% and its %cuantas% requests will be deleted. Are you sure?",
+  mover_a_coleccion: "Move to another collection",
+  coleccion_vacia: "There are no requests in this collection",
+  importadas: "Imported %cuantas% requests",
+  importar_error: "The file is not a valid requests JSON",
   recuperar: "Restore",
   detalle_direccion: "URL :",
   detalle_cabeceras: "Headers :",
@@ -152,7 +168,8 @@ language.en = {
   ayuda_guardadas: `
     <h3>Saved requests</h3>
     <p>The floppy disk saves the request of the tab with a name: URL, method, body, headers, what is saved to the environment and the multiple sending options.
-      In <b>Saved requests</b>, clicking the name shows what it contains and <b>Restore</b> opens it in a new tab.</p>`,
+      In <b>Saved requests</b>, clicking the name shows what it contains and <b>Restore</b> opens it in a new tab.</p>
+    <p>Requests are organised in <b>collections</b> (the folder tabs). You pick the collection when saving, and you can move them between collections from the list. <b>Export</b> downloads the collection you are viewing as JSON, <b>Export all</b> downloads all of them, and <b>Import</b> adds them from an exported JSON.</p>`,
   ayuda_respuesta: `
     <h3>The response</h3>
     <ul>

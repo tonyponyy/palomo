@@ -44,6 +44,8 @@ var settings ={
 tabs =[]
 entorno = []
 guardadas = []
+colecciones = []
+var coleccion_actual = ""
 
 var ventana_nueva = new URLSearchParams(location.search).has("nueva")
 
@@ -79,8 +81,9 @@ function multiple_object(activo=false,veces=5,modo="paralelo",intervalo=1000){
   this.intervalo = intervalo;
 }
 
-function peticion_object(nombre,url,metodo,tipo_envio,json,attributes,multiple,cabeceras,extracciones){
+function peticion_object(nombre,url,metodo,tipo_envio,json,attributes,multiple,cabeceras,extracciones,coleccion=""){
   this.nombre = nombre;
+  this.coleccion = coleccion;
   this.url = url;
   this.metodo = metodo;
   this.tipo_envio = tipo_envio;
@@ -307,11 +310,28 @@ var IMG_RELOJ = "img/reloj.gif"
     } catch (e) {
       guardadas = []
     }
+    try {
+      guardado = localStorage.getItem("palomo_colecciones")
+      colecciones = guardado == null? []: JSON.parse(guardado)
+    } catch (e) {
+      colecciones = []
+    }
+    // las colecciones que solo aparecen en alguna peticion (de versiones viejas o de otra ventana)
+    for (let i = 0; i < guardadas.length; i++) {
+      if (guardadas[i].coleccion == undefined){ guardadas[i].coleccion = "" }
+      if (guardadas[i].coleccion != "" && colecciones.indexOf(guardadas[i].coleccion) == -1){
+        colecciones.push(guardadas[i].coleccion)
+      }
+    }
+    if (coleccion_actual != "" && colecciones.indexOf(coleccion_actual) == -1){
+      coleccion_actual = ""
+    }
   }
 
   function guarda_guardadas(){
     try {
       localStorage.setItem("palomo_guardadas", JSON.stringify(guardadas))
+      localStorage.setItem("palomo_colecciones", JSON.stringify(colecciones))
     } catch (e) {
       console.log("No se han podido guardar las peticiones", e)
     }

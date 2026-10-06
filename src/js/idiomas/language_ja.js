@@ -94,6 +94,22 @@ language.ja = {
   guardar: "保存",
   peticiones_guardadas: "保存済みリクエスト",
   no_hay_guardadas: "保存済みのリクエストはありません。フロッピーディスクのボタンで保存できます",
+  coleccion: "コレクション",
+  nombre_coleccion: "コレクション名",
+  crear_coleccion: "新しいコレクション",
+  renombrar_coleccion: "名前を変更",
+  borrar_coleccion: "コレクションを削除",
+  importar: "インポート",
+  exportar: "エクスポート",
+  exportar_todo: "すべてエクスポート",
+  coleccion_general: "一般",
+  coleccion_sin_nombre: "コレクション名を入力してください",
+  coleccion_ya_existe: "同じ名前のコレクションがすでにあります",
+  confirmar_borrar_coleccion: "コレクション %nombre% と %cuantas% 件のリクエストを削除します。よろしいですか？",
+  mover_a_coleccion: "別のコレクションに移動",
+  coleccion_vacia: "このコレクションにはリクエストがありません",
+  importadas: "%cuantas% 件のリクエストをインポートしました",
+  importar_error: "ファイルが有効なリクエスト JSON ではありません",
   recuperar: "復元",
   detalle_direccion: "URL :",
   detalle_cabeceras: "ヘッダー :",
@@ -152,7 +168,8 @@ language.ja = {
   ayuda_guardadas: `
     <h3>保存済みリクエスト</h3>
     <p>フロッピーディスクのボタンで、タブのリクエストを名前を付けて保存します: URL、メソッド、ボディ、ヘッダー、環境に保存する値、複数回送信のオプション。
-      <b>保存済みリクエスト</b>で名前をクリックすると内容が見られ、<b>復元</b>で新しいタブに開きます。</p>`,
+      <b>保存済みリクエスト</b>で名前をクリックすると内容が見られ、<b>復元</b>で新しいタブに開きます。</p>
+    <p>リクエストは<b>コレクション</b>（フォルダのタブ）で整理されます。保存時にコレクションを選び、一覧から別のコレクションに移動できます。<b>エクスポート</b>は表示中のコレクションを JSON でダウンロードし、<b>すべてエクスポート</b>は全コレクションを、<b>インポート</b>はエクスポートした JSON から追加します。</p>`,
   ayuda_respuesta: `
     <h3>レスポンス</h3>
     <ul>

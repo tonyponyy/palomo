@@ -94,6 +94,22 @@ language.es = {
   guardar: "Guardar",
   peticiones_guardadas: "Peticiones guardadas",
   no_hay_guardadas: "No hay peticiones guardadas, guarda una con el boton del disquete",
+  coleccion: "Coleccion",
+  nombre_coleccion: "Nombre de la coleccion",
+  crear_coleccion: "Nueva coleccion",
+  renombrar_coleccion: "Renombrar",
+  borrar_coleccion: "Borrar coleccion",
+  importar: "Importar",
+  exportar: "Exportar",
+  exportar_todo: "Exportar todo",
+  coleccion_general: "General",
+  coleccion_sin_nombre: "Escribe un nombre para la coleccion",
+  coleccion_ya_existe: "Ya hay una coleccion con ese nombre",
+  confirmar_borrar_coleccion: "Se va a borrar la coleccion %nombre% con sus %cuantas% peticiones. ¿Seguro?",
+  mover_a_coleccion: "Mover a otra coleccion",
+  coleccion_vacia: "No hay peticiones en esta coleccion",
+  importadas: "Importadas %cuantas% peticiones",
+  importar_error: "El archivo no es un JSON de peticiones valido",
   recuperar: "Recuperar",
   detalle_direccion: "Direccion :",
   detalle_cabeceras: "Cabeceras :",
@@ -152,7 +168,8 @@ language.es = {
   ayuda_guardadas: `
     <h3>Peticiones guardadas</h3>
     <p>El disquete guarda la peticion de la pestaña con un nombre: direccion, metodo, cuerpo, cabeceras, lo que se guarda en el entorno y las opciones del envio multiple.
-      En <b>Peticiones guardadas</b>, pulsando el nombre se ve lo que tiene y <b>Recuperar</b> la abre en una pestaña nueva.</p>`,
+      En <b>Peticiones guardadas</b>, pulsando el nombre se ve lo que tiene y <b>Recuperar</b> la abre en una pestaña nueva.</p>
+    <p>Las peticiones se organizan en <b>colecciones</b> (las pestañas con la carpeta). Al guardar se elige la coleccion, y desde la lista se pueden mover de una a otra. <b>Exportar</b> descarga la coleccion que se esta viendo en un JSON, <b>Exportar todo</b> todas, e <b>Importar</b> las añade desde un JSON exportado.</p>`,
   ayuda_respuesta: `
     <h3>La respuesta</h3>
     <ul>

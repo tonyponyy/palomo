@@ -94,6 +94,22 @@ language.ca = {
   guardar: "Desa",
   peticiones_guardadas: "Peticions desades",
   no_hay_guardadas: "No hi ha peticions desades, desa'n una amb el botó del disquet",
+  coleccion: "Col·lecció",
+  nombre_coleccion: "Nom de la col·lecció",
+  crear_coleccion: "Nova col·lecció",
+  renombrar_coleccion: "Reanomena",
+  borrar_coleccion: "Esborra la col·lecció",
+  importar: "Importa",
+  exportar: "Exporta",
+  exportar_todo: "Exporta-ho tot",
+  coleccion_general: "General",
+  coleccion_sin_nombre: "Escriu un nom per a la col·lecció",
+  coleccion_ya_existe: "Ja hi ha una col·lecció amb aquest nom",
+  confirmar_borrar_coleccion: "S'esborrarà la col·lecció %nombre% amb les seves %cuantas% peticions. N'estàs segur?",
+  mover_a_coleccion: "Mou a una altra col·lecció",
+  coleccion_vacia: "No hi ha peticions en aquesta col·lecció",
+  importadas: "S'han importat %cuantas% peticions",
+  importar_error: "El fitxer no és un JSON de peticions vàlid",
   recuperar: "Recupera",
   detalle_direccion: "Adreça :",
   detalle_cabeceras: "Capçaleres :",
@@ -152,7 +168,8 @@ language.ca = {
   ayuda_guardadas: `
     <h3>Peticions desades</h3>
     <p>El disquet desa la petició de la pestanya amb un nom: adreça, mètode, cos, capçaleres, el que es desa a l'entorn i les opcions de l'enviament múltiple.
-      A <b>Peticions desades</b>, prement el nom es veu el que té i <b>Recupera</b> l'obre en una pestanya nova.</p>`,
+      A <b>Peticions desades</b>, prement el nom es veu el que té i <b>Recupera</b> l'obre en una pestanya nova.</p>
+    <p>Les peticions s'organitzen en <b>col·leccions</b> (les pestanyes amb la carpeta). En desar es tria la col·lecció, i des de la llista es poden moure d'una a l'altra. <b>Exporta</b> baixa la col·lecció que es veu en un JSON, <b>Exporta-ho tot</b> totes, i <b>Importa</b> les afegeix des d'un JSON exportat.</p>`,
   ayuda_respuesta: `
     <h3>La resposta</h3>
     <ul>

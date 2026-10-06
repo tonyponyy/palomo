@@ -11,7 +11,8 @@ Cliente de escritorio sencillo para probar APIs HTTP, hecho con Electron.
 | Sistema | Archivo |
 |---|---|
 | Linux | `Palomo-API-geon-x.x.x.AppImage` (dale permiso de ejecución y ábrelo) o `palomo_x.x.x_amd64.deb` (Ubuntu / Debian) |
-| Windows | `Palomo-API-geon-x.x.x-windows-portable.zip` (no necesita instalarse: descomprímelo y abre `Palomo API-geon.exe`) |
+| Windows | `Palomo-API-geon-x.x.x-windows-portable.zip` **(recomendado)**: no necesita instalarse. Haz clic derecho → *Extraer todo* y abre `Palomo API-geon.exe` de la carpeta (no lo abras desde dentro del zip, no funcionaría) |
+| Windows | `Palomo-API-geon-x.x.x-instalador.exe`: lo instala en el ordenador y crea accesos directos |
 
 > En Windows puede salir el aviso "Windows protegió su PC" porque el programa no está firmado.
 > Pulsa en **Más información → Ejecutar de todas formas**.
@@ -47,8 +48,16 @@ detrás de otra (esperando cada respuesta) o cada cierto tiempo.
 ![Resultado del envío múltiple](capturas/palomo2.png)
 
 El resultado del envío múltiple: cuántas han ido bien y cuántas han fallado, los tiempos mínimo,
-medio y máximo, y cada respuesta por separado. Aquí `{{$i}}` se cambia por el número de envío
-(`test_1`, `test_2`…) y `{{$num}}` suma 1 en cada petición (`1234`, `1235`…).
+medio y máximo, y cada respuesta por separado.
+
+En el cuerpo se ven los dos iteradores en acción:
+
+- **`{{$i}}`** (en morado) es el número de envío, así que `"test_{{$i}}"` llega como
+  `test_1`, `test_2`, `test_3`…
+- **`{{$num}}`** (en naranja) usa la variable `num` del entorno como contador: cada petición
+  envía su valor y le suma 1, así que `userId` llega como `1234`, `1235`, `1236`…
+
+Más detalles en [Iteradores](#iteradores-i-y-variable).
 
 ### Entorno
 
@@ -61,10 +70,32 @@ se pueden guardar aquí valores sacados de una respuesta, como un token.
 
 ### Peticiones guardadas
 
-![Peticiones guardadas](capturas/palomo4.png)
+![Peticiones guardadas, colección JSONPlaceholder](capturas/guardadas_colecciones.png)
 
-Las peticiones que has guardado, con su método y la fecha. Al pulsar una se abre en una
-pestaña nueva tal y como la dejaste. La interfaz está en 7 idiomas (aquí en español).
+Las peticiones que has guardado, organizadas en **colecciones**: las pestañas con la carpeta de
+arriba, con cuántas peticiones tiene cada una (por ejemplo una por proyecto o por API). Cada
+petición muestra su método con un color (**GET** verde,
+**POST** rojo, **PUT** azul,
+**PATCH** morado y **DELETE** naranja),
+su nombre y la fecha. Al pulsar el nombre se ve lo que tiene (dirección, cabeceras y cuerpo) y
+**Recuperar** la abre en una pestaña nueva tal y como la dejaste. Con el desplegable de al lado se
+pasa a otra colección.
+
+![Otra colección](capturas/guardadas_otra.png)
+
+Las colecciones se crean, renombran y borran desde la barra de arriba. La colección *General*
+siempre está y es donde van las que no tienen otra.
+
+![Guardar en una colección](capturas/guardar_coleccion.png)
+
+Al guardar con el disquete (o `Ctrl+S`) se pone un nombre y se elige en qué colección va; por
+defecto sale la última que has usado.
+
+Con **Exportar** y **Exportar todo** se descargan en un archivo JSON (la colección que estás
+viendo o todas a la vez), y con **Importar** se cargan en otro ordenador o se pasan a otra
+persona. Más detalles en [Importar y exportar colecciones](#importar-y-exportar-colecciones).
+
+La interfaz está en 7 idiomas (aquí en español).
 
 ### Ver imágenes y páginas de la respuesta
 
@@ -77,12 +108,94 @@ del programa, ya sean imágenes o páginas web, o abrirlas en una pestaña del n
 
 - Peticiones GET, POST, PUT, DELETE… con cuerpo JSON y cabeceras personalizadas
 - Pestañas, y peticiones guardadas para reutilizarlas
+  - Organizadas en colecciones (carpetas)
+  - Se pueden exportar e importar en JSON
 - Variables de entorno: escribe `{{clave}}` en la URL, las cabeceras o el JSON
   - `{{$clave}}` envía el valor y después le suma 1
   - `{{$i}}` es el número de envío
+  - Mira [cómo funcionan los iteradores](#iteradores-i-y-variable)
 - Extraer valores de la respuesta al entorno
 - Envío múltiple: en paralelo, en secuencia o a intervalos
 - Disponible en español, català, English, Deutsch, русский, 中文 y 日本語
+
+### Iteradores `{{$i}}` y `{{$variable}}`
+
+Sirven para que cada petición sea distinta sin tener que cambiarla a mano, sobre todo con el
+envío múltiple. Se pueden escribir en la dirección, en las cabeceras y en el cuerpo JSON.
+
+**`{{$i}}`: número de envío**
+
+Se cambia por el número de la petición dentro del envío: `1`, `2`, `3`… en un envío múltiple,
+y siempre `1` en un envío normal. No guarda nada: en el siguiente envío múltiple vuelve a
+empezar por `1`.
+
+**`{{$variable}}`: contador del entorno**
+
+Usa una variable del entorno como contador. Envía su valor actual y, después, le suma 1 y lo
+guarda en el entorno, así que la siguiente petición (ahora o cuando vuelvas a abrir el programa)
+sigue por donde se quedó.
+
+- Solo funciona si la variable es un número entero (también negativo). Si no existe o no es un
+  número, se deja tal cual y se marca en rojo.
+- Se suma 1 por petición, aunque uses el mismo `{{$variable}}` varias veces en ella.
+- Respeta los ceros a la izquierda: `007` → `008` → `009`.
+- `{{variable}}`, sin el `$`, envía el valor sin sumarle nada.
+
+**Ejemplo**
+
+Con la variable `num` = `1234` en el entorno y este cuerpo, enviado 3 veces con el envío múltiple:
+
+```json
+{
+  "title": "test_{{$i}}",
+  "userId": {{$num}}
+}
+```
+
+| Envío | `title` | `userId` |
+|---|---|---|
+| 1 | `test_1` | `1234` |
+| 2 | `test_2` | `1235` |
+| 3 | `test_3` | `1236` |
+
+Al terminar, `num` vale `1237` en el entorno. Si lo vuelves a enviar 3 veces, `title` vuelve a
+ir de `test_1` a `test_3`, pero `userId` sigue en `1237`, `1238`, `1239`.
+
+Mientras escribes, cada tipo se resalta con un color:
+<code>{{variable}}</code> en verde, <code>{{$variable}}</code> en naranja, <code>{{$i}}</code> en
+morado y lo que no existe en rojo.
+
+### Importar y exportar colecciones
+
+En **Peticiones guardadas** están los botones:
+
+- **Exportar**: descarga la colección que estás viendo (`palomo_<colección>.json`).
+- **Exportar todo**: descarga todas las colecciones en un solo archivo (`palomo_guardadas.json`).
+- **Importar**: añade las peticiones de un archivo exportado. No borra ni sustituye nada: si la
+  colección ya existe se añaden a ella, y si no, se crea.
+
+El archivo tiene esta forma (la colección *General* tiene el nombre vacío `""`):
+
+```json
+{
+  "palomo": "colecciones",
+  "version": 1,
+  "colecciones": [
+    {
+      "nombre": "Users",
+      "peticiones": [
+        { "nombre": "Login", "metodo": "POST", "url": "{{host}}/login", "tipo_envio": "json", "json": "{}", "cabeceras": [] }
+      ]
+    }
+  ]
+}
+```
+
+También se puede importar un JSON que sea solo una lista de peticiones (`[ {...}, {...} ]`); en
+ese caso van a la colección que estés viendo. Lo único obligatorio en cada petición es la `url`.
+
+> Las peticiones se guardan tal cual, con sus cabeceras. Si alguna lleva un token o una
+> contraseña escrita a mano, irá también en el archivo exportado: mejor usar `{{token}}` del entorno.
 
 ## Ejecutar desde el código
 
