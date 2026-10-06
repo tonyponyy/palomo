@@ -199,6 +199,8 @@ ese caso van a la colección que estés viendo. Lo único obligatorio en cada pe
 
 ## Ejecutar desde el código
 
+> ⚠️ Esto es unicamente para compilarlo si se hacen cambios, **si quieres usarlo sin mas, pulsa en el enlace de descargas de arriba.**
+
 Necesitas [Node.js](https://nodejs.org/) 18 o superior.
 
 ```bash
