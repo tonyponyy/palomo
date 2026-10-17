@@ -1,5 +1,6 @@
 window.onload = function() {
   carga_idioma()
+  carga_verificar_ssl()
   traduce_pagina()
   cambia_seccion(settings.seccion)
   cambia_vista_respuesta(settings.vista_respuesta)
@@ -11,6 +12,7 @@ window.onload = function() {
   cambiar_tipo_envio()
   if (window.palomo_electron != undefined){
     document.getElementById("barra_superior").style.display = "none"
+    document.getElementById("configuracion_ssl").style.display = "block"
     window.palomo_electron.al_pulsar_menu(opcion_menu)
     window.palomo_electron.cambia_idioma(idioma)
   }
@@ -31,6 +33,10 @@ window.addEventListener("storage", function(evento){
     if (document.getElementById("modal_configuracion").style.display == "flex"){
       document.getElementById("selector_idioma").value = idioma
     }
+  }
+  if (evento.key == "palomo_verificar_ssl"){
+    carga_verificar_ssl()
+    document.getElementById("no_verificar_ssl").checked = !verificar_ssl
   }
   if (evento.key == "palomo_guardadas" || evento.key == "palomo_colecciones"){
     carga_guardadas()

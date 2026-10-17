@@ -470,6 +470,16 @@ button{
     color: cadetblue;
 }
 
+#configuracion_ssl h3{
+    margin-top: 16px;
+}
+
+.configuracion_nota{
+    margin: 6px 0px 0px 0px;
+    font-size: 0.85em;
+    opacity: 0.7;
+}
+
 #modal_nombre .modal_box{
     width: 500px;
     max-width: 90%;

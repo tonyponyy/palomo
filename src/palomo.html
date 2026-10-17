@@ -228,6 +228,11 @@
                 <option value="de">Deutsch</option>
                 <option value="ja">日本語</option>
             </select>
+            <div id="configuracion_ssl" style="display: none">
+                <h3 data-texto="seguridad"></h3>
+                <label><input id="no_verificar_ssl" type="checkbox" onchange="cambiar_verificar_ssl()"> <span data-texto="no_verificar_ssl"></span></label>
+                <p class="configuracion_nota" data-texto="no_verificar_ssl_ayuda"></p>
+            </div>
         </div>
     </div>
 </section>

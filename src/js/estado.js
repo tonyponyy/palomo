@@ -25,6 +25,23 @@ function carga_idioma(){
   }
 }
 
+var verificar_ssl = false
+
+function carga_verificar_ssl(){
+  try {
+    verificar_ssl = localStorage.getItem("palomo_verificar_ssl") == "si"
+  } catch (e) {
+  }
+}
+
+function guarda_verificar_ssl(){
+  try {
+    localStorage.setItem("palomo_verificar_ssl", verificar_ssl? "si": "no")
+  } catch (e) {
+    console.log("No se ha podido guardar la verificacion SSL", e)
+  }
+}
+
 function guarda_idioma(){
   try {
     localStorage.setItem("palomo_idioma", idioma)

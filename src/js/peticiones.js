@@ -110,7 +110,7 @@ function loadDoc() {
     }
 
     if (window.palomo_electron != undefined){
-      return window.palomo_electron.peticion(peticion).then(con_tiempo)
+      return window.palomo_electron.peticion(Object.assign({}, peticion, {verificar_ssl: verificar_ssl})).then(con_tiempo)
     }
 
     return new Promise(function(resolve){

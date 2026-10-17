@@ -13,11 +13,17 @@ function abrir_ayuda(){
 
 function abrir_configuracion(){
   document.getElementById("selector_idioma").value = idioma
+  document.getElementById("no_verificar_ssl").checked = !verificar_ssl
   document.getElementById("modal_configuracion").style.display = "flex"
 }
 
 function cerrar_configuracion(){
   document.getElementById("modal_configuracion").style.display = "none"
+}
+
+function cambiar_verificar_ssl(){
+  verificar_ssl = !document.getElementById("no_verificar_ssl").checked
+  guarda_verificar_ssl()
 }
 
 function cambiar_idioma(){

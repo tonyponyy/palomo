@@ -112,6 +112,16 @@ function permitir_iframes() {
   })
 }
 
+// sesion aparte para las peticiones sin verificar el certificado, asi no afecta al resto de la app
+let sesion_insegura = null
+function sesion_sin_ssl() {
+  if (sesion_insegura == null) {
+    sesion_insegura = session.fromPartition('palomo_sin_ssl')
+    sesion_insegura.setCertificateVerifyProc((peticion, callback) => callback(0))
+  }
+  return sesion_insegura
+}
+
 ipcMain.handle('peticion', async (evento, datos) => {
   if (!/^https?:\/\//.test(datos.url)) {
     return { status: 0, statusText: textos.error_direccion_http, tipo: '', texto: '', cabeceras: [] }
@@ -126,7 +136,9 @@ ipcMain.handle('peticion', async (evento, datos) => {
     opciones.headers[nombre] = valor
   }
   try {
-    const respuesta = await net.fetch(datos.url, opciones)
+    const respuesta = datos.verificar_ssl === false
+      ? await sesion_sin_ssl().fetch(datos.url, opciones)
+      : await net.fetch(datos.url, opciones)
     return {
       cabeceras: [...respuesta.headers],
       status: respuesta.status,
